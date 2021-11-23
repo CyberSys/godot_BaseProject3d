@@ -1,0 +1,99 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Common/M_Blockout.tres" type="Material" id=1]
+[ext_resource path="res://Common/M_DynamicObject.tres" type="Material" id=2]
+[ext_resource path="res://Common/FreeCamera/FreeCamera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://DefaultPlayer.tscn" type="PackedScene" id=4]
+
+[sub_resource type="SphereShape" id=3]
+
+[sub_resource type="SphereMesh" id=4]
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 10, 0.5, 10 )
+
+[sub_resource type="PlaneMesh" id=1]
+size = Vector2( 20, 20 )
+
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 0.5, 1, 10 )
+
+[sub_resource type="CubeMesh" id=5]
+size = Vector3( 1, 2, 20 )
+
+[node name="Root" type="Spatial"]
+
+[node name="RigidBody" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
+shape = SubResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="RigidBody"]
+mesh = SubResource( 4 )
+material/0 = ExtResource( 2 )
+
+[node name="FreeCamera" parent="." instance=ExtResource( 3 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 4, -11 )
+
+[node name="Ground" type="StaticBody" parent="."]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape" type="CollisionShape" parent="Ground"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
+shape = SubResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Ground"]
+mesh = SubResource( 1 )
+skeleton = NodePath("../..")
+material/0 = ExtResource( 1 )
+
+[node name="DefaultPlayer" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.5, 4 )
+turn_enabled = true
+
+[node name="Walls" type="StaticBody" parent="."]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape" type="CollisionShape" parent="Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 0 )
+shape = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Walls/CollisionShape"]
+mesh = SubResource( 5 )
+skeleton = NodePath("../..")
+material/0 = ExtResource( 1 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0, 0 )
+shape = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Walls/CollisionShape2"]
+mesh = SubResource( 5 )
+skeleton = NodePath("../..")
+material/0 = ExtResource( 1 )
+
+[node name="CollisionShape3" type="CollisionShape" parent="Walls"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, -10.5 )
+shape = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Walls/CollisionShape3"]
+mesh = SubResource( 5 )
+skeleton = NodePath("../..")
+material/0 = ExtResource( 1 )
+
+[node name="CollisionShape4" type="CollisionShape" parent="Walls"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 10.5 )
+shape = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Walls/CollisionShape4"]
+mesh = SubResource( 5 )
+skeleton = NodePath("../..")
+material/0 = ExtResource( 1 )
